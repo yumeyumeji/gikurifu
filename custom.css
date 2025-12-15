@@ -1,0 +1,571 @@
+/* ========== 出演セクション用レイアウト ========== */
+
+/* 「出演」セクションの見出しを上、その下に内容をフル幅で */
+@media (min-width: 768px) {
+  .section-member .section-wrapper {
+    flex-direction: column;
+  }
+
+  .section-member .setion-content {
+    width: 100%;
+  }
+}
+
+/* 各バンドブロック */
+.member {
+  margin-bottom: 4rem;
+}
+
+/* 左のジャケット画像 */
+.member-fig img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* テキスト + MV をまとめるコンテナ（右側） */
+.member-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* スマホ・タブレットは縦積み */
+@media (max-width: 991.98px) {
+  .member {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .member-text,
+  .member-video {
+    max-width: 100%;
+  }
+}
+
+/* PC レイアウト：画像 + （テキスト + MV） */
+@media (min-width: 992px) {
+  .member {
+    display: flex;
+    gap: 2.5rem;
+    align-items: flex-start;
+    justify-content: right;   /* 全体を中央寄せ */
+  }
+
+  /* 左のジャケットの幅 */
+  .member-fig {
+    flex: 0 0 200px;
+  }
+
+  /* 右側（テキスト＋MV）全体の幅 */
+  .member-content {
+    flex: 0 0 720px;           /* ここを変えると全体がもっと左/右に寄る */
+  }
+
+  /* 右側は「テキスト / MV」を横並びに */
+  .member-main {
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  /* テキスト（バンド名＋説明） */
+  .member-text {
+    flex: 0 0 280px;           /* テキストのカラム幅 */
+    max-width: 320px;
+    margin-top: 15px;          /* MV の見た目の上端に合わせて少し下げる */
+  }
+
+  /* MV 側 */
+  .member-video {
+    flex: 1;
+    max-width: 420px;          /* プレイヤーの最大幅（小さくしたいときここ変更） */
+    margin-left: 10px;         /* MV を右端寄せ */
+  }
+
+  /* 画像も少し下げて MV と揃える */
+  .member-fig {
+    margin-top: 15px;
+  }
+}
+
+/* 見た目ちょい調整：バンド名のジャンプ率アップ */
+.member-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.member-link {
+  margin-top: 0.5rem;
+}
+
+/* 説明文（.member-profile を使う場合） */
+.member-profile {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+/* MV 埋め込みのレスポンシブ枠（16:9） */
+.member-video .video-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.member-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+/* ========== 共有ボタン関連 ========== */
+
+/* 共有ボタン共通（丸ボタン＆アイコン大きめ） */
+.share-btn {
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Misskeyボタン */
+.share-mk {
+  background-color: #3CB371;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* URLコピー ボタン */
+.share-copy {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* スクロール時、ナビがYouTubeの上に来るようにする */
+.nav-menu {
+  position: sticky;
+  top: var(--space-3);
+  z-index: 10;
+}
+
+/* 隠しモード：背景＆雰囲気チェンジ */
+body.bg-gikurifu {
+  background-image: url("../back.jpg"); /* index.html と同階層に back.jpg の場合 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 全体に薄いフィルムを被せて読みやすく */
+body.bg-gikurifu::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background: rgba(240,237,234,0.82); /* Lightテーマに合わせた薄い幕 */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 既存の中身が幕の上に来るように */
+body.bg-gikurifu .header-wrapper,
+body.bg-gikurifu .nav-menu,
+body.bg-gikurifu main,
+body.bg-gikurifu .container{
+  position: relative;
+  z-index: 1;
+}
+
+/* タイトルだけ“ちょい派手” */
+body.bg-gikurifu .header-title{
+  text-shadow: 0 0 18px rgba(0,0,0,.15);
+  letter-spacing: .02em;
+}
+
+/* トースト（右下に一瞬出る通知） */
+.gikurifu-toast{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.75);
+  color: #fff;
+  font-size: 14px;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: none;
+}
+.gikurifu-toast.is-show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 小さく揺れる */
+@keyframes gikurifu-shake{
+  0%{transform: translateX(0)}
+  25%{transform: translateX(-2px)}
+  50%{transform: translateX(2px)}
+  75%{transform: translateX(-1px)}
+  100%{transform: translateX(0)}
+}
+body.gikurifu-shake .header-wrapper{
+  animation: gikurifu-shake .22s ease;
+}
+
+/* 共有ボタンとナビは“幕より上”に固定 */
+body.bg-gikurifu .nav-share,
+body.bg-gikurifu .nav-menu{
+  position: relative;
+  z-index: 2;
+}
+
+.footer-credit {
+  margin-top: 1.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(0,0,0,0.15);
+  font-size: 0.9rem;
+  display: flex;
+  gap: 0.6em;
+  align-items: baseline;
+}
+
+.footer-credit-label {
+  letter-spacing: 0.08em;
+  opacity: 0.6;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.footer-credit-name {
+  font-weight: 700;
+}
+
+/* フライヤークレジット（画像に被せる） */
+.flyer-credit {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  z-index: 2;
+
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow:
+    0 1px 3px rgba(0,0,0,0.6),
+    0 0 8px rgba(0,0,0,0.3);
+
+  pointer-events: none; /* クリック邪魔しない */
+}
+
+/* ===== 出演（member）スマホ時の余白＆ロゴ縮小 ===== */
+@media (max-width: 575.98px) {
+  /* ひとつ前のMV（.member-video）と、次のバンドブロックの間を広げる */
+  .section-member .member + .member{
+    margin-top: 100px; /* 好みで 40〜72px で調整 */
+  }
+
+  /* ロゴ（ジャケット）を小さく */
+  .section-member .member-fig img{
+    width: 150px;
+    height: 150px;
+  }
+
+  /* ロゴとバンド名の間もちょい空ける（詰まり感対策） */
+  .section-member .member-name{
+    margin-top: 8px;
+  }
+}
+
+.news-block{
+  margin-top: 24px;
+}
+
+.news-heading{
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.news-scroll{
+  max-height: 220px;          /* ここで高さ固定（好みで調整） */
+  overflow: auto;             /* 中だけスクロール */
+  -webkit-overflow-scrolling: touch; /* iPhoneでぬるっと */
+  padding-right: 6px;         /* スクロールバー分の余白 */
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 12px;
+  padding: 12px 12px;
+  background: rgba(255,255,255,.6);
+}
+
+.notice-wrap{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notice{
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0,0,0,.10);
+}
+
+.notice:last-child{
+  border-bottom: none;
+}
+
+.thanks-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;      /* 非表示時は触れない */
+  transition: opacity .6s ease;
+}
+
+.thanks-overlay.is-show{
+  opacity: 1;
+  pointer-events: auto;      /* 表示中だけクリック有効 */
+}
+
+
+
+.thanks-text{
+  color: #fff;
+  font-size: clamp(28px, 6vw, 72px);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  padding: 24px;
+  animation: thanks-pop .8s ease both;
+}
+
+@keyframes thanks-pop{
+  0%{
+    transform: scale(.9);
+    opacity: 0;
+  }
+  100%{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* チケット予約ボタンの上に余白 */
+.js-action-button{
+  margin-top: 25px;
+  display: inline-block; /* aタグでも margin が効くように保険 */
+}
+
+/* GIKURIFU モードのカウントダウン表示 */
+.gikurifu-countdown{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2000;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+body.bg-gikurifu .gikurifu-countdown{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gikurifu-countdown .big{
+  font-size: clamp(28px, 5vw, 72px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: .02em;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 8px 32px rgba(0,0,0,.35);
+}
+
+.gikurifu-countdown .small{
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,.75);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+body.bg-janku{
+  background-image: url("../background-janku.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.janku-rain{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2500;
+  overflow: hidden;
+}
+
+.janku-rain span{
+  position: absolute;
+  top: -2em;
+  left: 0;
+  font-weight: 800;
+  font-size: clamp(18px, 2.6vw, 42px);
+  color: rgba(255,255,255,.9);
+  text-shadow: 0 8px 24px rgba(0,0,0,.35);
+  animation: janku-fall linear forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes janku-fall{
+  0%   { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(20deg); opacity: 0; }
+}
+
+/* モード切り替え時の「ブワッ」 */
+.mode-flash{
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(255,255,255,.55) 0%,
+    rgba(255,255,255,.12) 35%,
+    rgba(0,0,0,0) 70%);
+  transform: scale(.92);
+  filter: blur(14px);
+}
+
+.mode-flash.is-on{
+  animation: modeFlash .55s ease-out forwards;
+}
+
+@keyframes modeFlash{
+  0%   { opacity: 0; transform: scale(.92); filter: blur(18px); }
+  15%  { opacity: 1; transform: scale(1.03); filter: blur(6px); }
+  100% { opacity: 0; transform: scale(1.12); filter: blur(0px); }
+}
+
+/* ついでに背景画像の切替自体もヌルッとさせる（任意） */
+body{
+  transition: background-image .2s ease, background-color .2s ease;
+}
+
+/* ターミナル（gikurifu認証） */
+.gikurifu-terminal{
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: none;
+  background: rgba(0,0,0,.72);
+  backdrop-filter: blur(6px);
+}
+
+.gikurifu-terminal.is-show{ display:block; }
+
+.gikurifu-terminal .win{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(820px, calc(100vw - 28px));
+  height: min(520px, calc(100vh - 28px));
+  transform: translate(-50%,-50%);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.14);
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(70,255,170,.12), rgba(0,0,0,.92));
+  box-shadow: 0 30px 120px rgba(0,0,0,.55);
+}
+
+.gikurifu-terminal .bar{
+  height: 42px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.75);
+  font-weight: 700;
+  letter-spacing: .06em;
+  user-select:none;
+}
+
+.gikurifu-terminal .dots{
+  display:flex; gap:8px; align-items:center;
+}
+.gikurifu-terminal .dot{
+  width:10px; height:10px; border-radius:50%;
+  background: rgba(255,255,255,.18);
+}
+
+.gikurifu-terminal .screen{
+  position: relative;
+  height: calc(100% - 42px);
+  padding: 14px 16px;
+  color: rgba(210,255,230,.92);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  line-height: 1.55;
+  overflow: auto;
+}
+
+/* スキャンライン（雰囲気） */
+.gikurifu-terminal .screen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.05) 0px,
+    rgba(255,255,255,.05) 1px,
+    rgba(0,0,0,0) 3px,
+    rgba(0,0,0,0) 6px
+  );
+  opacity:.12;
+  pointer-events:none;
+}
+
+.gikurifu-terminal .prompt{
+  display:flex;
+  gap:8px;
+  margin-top: 10px;
+  white-space: pre-wrap;
+}
+
+.gikurifu-terminal .caret{
+  display:inline-block;
+  width: 10px;
+  animation: caretBlink 1s steps(2,end) infinite;
+  opacity: .9;
+}
+@keyframes caretBlink{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+
+.gikurifu-terminal .hint{
+  color: rgba(210,255,230,.65);
+}
+
+.gikurifu-terminal .ok{ color: rgba(130,255,190,.92); font-weight: 800; }
+.gikurifu-terminal .ng{ color: rgba(255,140,140,.92); font-weight: 800; }
